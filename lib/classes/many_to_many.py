@@ -57,6 +57,15 @@ class Customer:
         else:
             return
 
+    @classmethod
+    def most_aficionado(cls, coffee):
+        if not isinstance(coffee, Coffee):
+            return None
+        customers = [order.customer for order in coffee.orders()]
+        if not customers:
+            return None
+        return max(customers, key=lambda c: sum(o.price for o in c.orders() if o.coffee == coffee))
+
 
 class Order:
     all = []
